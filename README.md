@@ -1,30 +1,30 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Fake Bombo API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+**Fake Bombo API** is an in-development API that mimics the basic functionalities of the popular 'Bombo' app. This project is designed for educational purposes to help developers understand and build similar APIs.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Furthermore, this API will be the foundation for a future Flutter application that I will develop, which will also serve as a 'fake' version of the 'Bombo' app. This ensures a seamless integration and scalability between the API and the Flutter application.
 
-## Description
+## Features
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- **User Authentication**: Support for user registration, login, and session management.
+- **Ticket Purchasing**: Allows users to buy tickets for various events.
+- **Event Attendance**: Users can indicate their intention to attend events.
+- **Event Management**: Administrators can create, update, and delete events.
+- **Artist Management**: Administrators have the ability to add and manage artist profiles.
+- **Comments**: Users can comment on events to share their experiences or opinions.
+<!-- - **Notifications**: A basic notification system to keep users updated about event news and updates. -->
+
+## Admin Features
+
+- **Event and Artist Management**: Admins can add and manage details about events and artists, including schedules, descriptions, and associated media.
+- **News Management**: Ability to post updates or news related to events, artists, or the app itself.
+
+## Technologies Used
+
+- **Backend**: NestJS (an extensible Node.js framework for building efficient and scalable server-side applications)
+- **Database**: PostgreSQL (an advanced open-source relational database)
+- **Authentication**: JWT (JSON Web Tokens) for secure and scalable user authentication
+<!-- - **Documentation**: Swagger (for API documentation, making it easier to maintain and consume the API) -->
 
 ## Installation
 
@@ -45,29 +45,8 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
 ## Stay in touch
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+- Author - [eserdeiro](https://github.com/eserdeiro)
+- Website - [github](https://github.com/eserdeiro)
+- Twitter - [@emanuelserdeiro](https://twitter.com/emanuelserdeiro)
