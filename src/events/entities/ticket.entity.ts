@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from "typeorm";
 import { Event } from "./event.entity";
 
-@Entity()
+@Entity({ name: 'event_tickets' })
 export class Ticket {
 
     @PrimaryGeneratedColumn('uuid')
