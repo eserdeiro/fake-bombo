@@ -16,7 +16,7 @@ export class Event {
     @Column('date', { nullable: false })
     date: Date;
 
-    @Column('text', { nullable: true })
+    @Column('text', { unique: true })
     slug: string
 
     @Column('text', {
@@ -25,6 +25,6 @@ export class Event {
     })
     image: string;
 
-    @OneToMany(() => Ticket, ticket => ticket.event)
+    @OneToMany(() => Ticket, ticket => ticket.event, { cascade: true })
     tickets: Ticket[];
 }

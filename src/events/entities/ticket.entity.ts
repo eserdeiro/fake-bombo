@@ -13,18 +13,13 @@ export class Ticket {
     @Column('text', { nullable: false })
     description: string;
 
-    @Column('decimal', { precision: 10, scale: 2, nullable: false })
+    @Column('float')
     price: number;
 
     @Column('numeric', {
         nullable: true
     })
     stock: number;
-
-    @Column('text', {
-        unique: true
-    })
-    slug: string
 
     @ManyToOne(() => Event, event => event.tickets, { nullable: false })
     event: Event;
