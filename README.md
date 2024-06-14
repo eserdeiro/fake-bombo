@@ -61,7 +61,7 @@ $ npm run start:prod
 
 It acts as the starting point for setting up a pre-defined environment in your database. 
 
-By accessing http://localhost:3000/seed, you can insert initial data into the database, which is crucial for setting up a predefined test environment or for starting the application with a basic set of data. 
+By accessing ``http://localhost:3000/api/seed``, you can insert initial data into the database, which is crucial for setting up a predefined test environment or for starting the application with a basic set of data. 
 > [!CAUTION]
 > This will delete all existing data in the database and overwrite it with the seed data.
 
