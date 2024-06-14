@@ -101,8 +101,6 @@ export class EventsService {
   async remove(id: string) {
     const event = await this.findOne(id)
 
-    await this.ticketRepository.remove(event.tickets);
-
     await this.eventRepository.remove(event);
 
     return { message: `Event with id ${id} has been removed` };
@@ -115,5 +113,18 @@ export class EventsService {
 
     this.logger.error(error.detail)
     throw new InternalServerErrorException('Unexpected error, check the server logs')
+  }
+
+  async deleteAllEvents() {
+    const query = this.eventRepository.createQueryBuilder('event')
+
+    try {
+      return await query
+        .delete()
+        .where({})
+        .execute()
+    } catch (error) {
+      this.handleExeptions(error)
+    }
   }
 }

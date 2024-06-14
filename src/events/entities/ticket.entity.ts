@@ -21,6 +21,6 @@ export class Ticket {
     })
     stock: number;
 
-    @ManyToOne(() => Event, event => event.tickets, { nullable: false })
+    @ManyToOne(() => Event, event => event.tickets, { nullable: false, onDelete: 'CASCADE' })
     event: Event;
 }
