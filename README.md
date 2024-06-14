@@ -24,12 +24,15 @@ Furthermore, this API will be the foundation for a future Flutter application th
 - **Backend**: NestJS (an extensible Node.js framework for building efficient and scalable server-side applications)
 - **Database**: PostgreSQL (an advanced open-source relational database)
 - **Authentication**: JWT (JSON Web Tokens) for secure and scalable user authentication
-<!-- - **Documentation**: Swagger (for API documentation, making it easier to maintain and consume the API) -->
+- **Documentation**: Swagger (for API documentation, making it easier to maintain and consume the API)
 
 ## Installation
 
-```bash
+```shell
 $ npm install
+
+#Up db
+$ docker-compose up -d
 ```
 
 ## Running the app
