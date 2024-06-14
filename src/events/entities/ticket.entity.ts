@@ -17,8 +17,7 @@ export class Ticket {
     price: number;
 
     @Column('numeric', {
-        default: 0,
-        nullable: false
+        nullable: true
     })
     stock: number;
 

@@ -16,6 +16,9 @@ export class Event {
     @Column('date', { nullable: false })
     date: Date;
 
+    @Column('text', { nullable: true })
+    slug: string
+
     @Column('text', {
         default: '/default.png',
         nullable: false
