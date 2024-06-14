@@ -27,5 +27,6 @@ export class CreateEventDto {
     @IsArray()
     @ValidateNested({ each: true })
     @Type(() => CreateTicketDto)
-    tickets: CreateTicketDto[];
+    @IsOptional()
+    tickets?: CreateTicketDto[];
 }

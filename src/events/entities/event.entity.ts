@@ -1,4 +1,4 @@
-import { BeforeInsert, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, BeforeUpdate, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Ticket } from "./ticket.entity";
 
 @Entity()
@@ -33,6 +33,12 @@ export class Event {
         if (!this.slug) {
             this.slug = this.title
         }
+        this.slug = this.slug
+            .toLowerCase()
+            .replace(/[~`!@#$%^&*()+={}\[\];:\'\"<>.,\/\\\?/\s/]/g, '-');
+    }
+    @BeforeUpdate()
+    checkSlugUpdate() {
         this.slug = this.slug
             .toLowerCase()
             .replace(/[~`!@#$%^&*()+={}\[\];:\'\"<>.,\/\\\?/\s/]/g, '-');
