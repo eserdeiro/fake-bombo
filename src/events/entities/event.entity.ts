@@ -1,4 +1,4 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Ticket } from "./ticket.entity";
 
 @Entity()
@@ -27,4 +27,14 @@ export class Event {
 
     @OneToMany(() => Ticket, ticket => ticket.event, { cascade: true })
     tickets: Ticket[];
+
+    @BeforeInsert()
+    checkSlugInsert() {
+        if (!this.slug) {
+            this.slug = this.title
+        }
+        this.slug = this.slug
+            .toLowerCase()
+            .replace(/[~`!@#$%^&*()+={}\[\];:\'\"<>.,\/\\\?/\s/]/g, '-');
+    }
 }

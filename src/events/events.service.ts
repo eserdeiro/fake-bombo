@@ -43,8 +43,12 @@ export class EventsService {
 
   }
 
-  findAll() {
-    return `This action returns all events`;
+  async findAll() {
+    const events = await this.eventRepository.find({
+      relations: ['tickets']
+    });
+
+    return events;
   }
 
   findOne(id: number) {
