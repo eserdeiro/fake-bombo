@@ -22,6 +22,11 @@ export class Ticket {
     })
     stock: number;
 
+    @Column('text', {
+        unique: true
+    })
+    slug: string
+
     @ManyToOne(() => Event, event => event.tickets, { nullable: false })
     event: Event;
 }
