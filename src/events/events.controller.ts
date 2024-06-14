@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, ParseUUIDPipe, Query
 import { EventsService } from './events.service';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
-import { PaginationDto } from 'src/common/dto/pagination.dto';
+import { QuerysDto as QuerysDto } from 'src/common/dto/querys.dto';
 
 @Controller('events')
 export class EventsController {
@@ -14,8 +14,8 @@ export class EventsController {
   }
 
   @Get()
-  findAll(@Query() paginationDto: PaginationDto) {
-    return this.eventsService.findAll(paginationDto);
+  findAll(@Query() querysDto: QuerysDto) {
+    return this.eventsService.findAll(querysDto);
   }
 
   @Get(':id')

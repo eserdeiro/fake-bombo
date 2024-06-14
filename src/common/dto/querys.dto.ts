@@ -1,7 +1,7 @@
 import { Type } from "class-transformer";
-import { IsOptional, IsPositive, Min } from "class-validator";
+import { IsOptional, IsPositive, IsString, Min, MinLength } from "class-validator";
 
-export class PaginationDto {
+export class QuerysDto {
     @IsOptional()
     @IsPositive()
     @Type(() => Number) // Convert string to number
@@ -11,4 +11,10 @@ export class PaginationDto {
     @Min(0)
     @Type(() => Number)
     offset?: number
+
+
+    @IsOptional()
+    @MinLength(1)
+    @IsString()
+    search?: string
 }

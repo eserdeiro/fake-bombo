@@ -2,10 +2,10 @@ import { BadRequestException, Injectable, InternalServerErrorException, Logger }
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { ILike, Repository } from 'typeorm';
 import { Event } from './entities/event.entity';
 import { Ticket } from './entities/ticket.entity';
-import { PaginationDto } from 'src/common/dto/pagination.dto';
+import { QuerysDto as QuerysDto } from 'src/common/dto/querys.dto';
 
 @Injectable()
 export class EventsService {
@@ -44,11 +44,12 @@ export class EventsService {
 
   }
 
-  async findAll(paginationDto: PaginationDto) {
-    const { limit = 1, offset = 0 } = paginationDto
+  async findAll(querysDto: QuerysDto) {
+    const { limit = 10, offset = 0, search } = querysDto
     const events = await this.eventRepository.find({
       take: limit,
       skip: offset,
+      where: search ? { title: ILike(`%${search}%`) } : {},
       relations: ['tickets']
     });
 
