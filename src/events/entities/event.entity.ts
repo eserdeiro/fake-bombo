@@ -13,8 +13,8 @@ export class Event {
     @Column('text', { nullable: false })
     description: string;
 
-    @Column('date', { nullable: false })
-    date: Date;
+    @Column('text', { nullable: false })
+    date: string;
 
     @Column('text', { unique: true })
     slug: string
