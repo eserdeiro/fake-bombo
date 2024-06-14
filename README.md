@@ -28,16 +28,23 @@ Furthermore, this API will be the foundation for a future Flutter application th
 
 ## Installation
 
-```shell
+```powershell
+# clone project 
+$ git clone https://github.com/eserdeiro/fake-bombo-api
+
+# execute
 $ npm install
 
-#Up db
+# clone '.env.template' and rename to '.env' and update your environment vars
+$ cp .env.template .env
+
+# up db
 $ docker-compose up -d
 ```
 
 ## Running the app
 
-```bash
+```powershell
 # development
 $ npm run start
 
