@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { EventsModule } from './events/events.module';
+import { CommonModule } from './common/common.module';
 
 @Module({
   imports: [
@@ -16,7 +17,8 @@ import { EventsModule } from './events/events.module';
       autoLoadEntities: true,
       synchronize: true
     }),
-    EventsModule
+    EventsModule,
+    CommonModule
   ],
 })
 export class AppModule { }

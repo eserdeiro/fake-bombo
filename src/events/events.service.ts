@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Event } from './entities/event.entity';
 import { Ticket } from './entities/ticket.entity';
+import { PaginationDto } from 'src/common/dto/pagination.dto';
 
 @Injectable()
 export class EventsService {
@@ -43,8 +44,11 @@ export class EventsService {
 
   }
 
-  async findAll() {
+  async findAll(paginationDto: PaginationDto) {
+    const { limit = 1, offset = 0 } = paginationDto
     const events = await this.eventRepository.find({
+      take: limit,
+      skip: offset,
       relations: ['tickets']
     });
 
