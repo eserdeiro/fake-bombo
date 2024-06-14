@@ -51,16 +51,32 @@ export class EventsService {
     return events;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} event`;
+  async findOne(id: string) {
+    const event = await this.eventRepository.findOne({
+      where: { id },
+      relations: ['tickets']
+    });
+
+    if (!event) {
+      throw new BadRequestException(`Event with ID ${id} not found`);
+    }
+
+    return event;
   }
 
   update(id: number, updateEventDto: UpdateEventDto) {
     return `This action updates a #${id} event`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} event`;
+  async remove(id: string) {
+    const event = await this.findOne(id)
+
+    await this.ticketRepository.remove(event.tickets);
+
+    await this.eventRepository.remove(event);
+
+    return { message: `Event with id ${id} has been removed` };
+
   }
 
   private handleExeptions(error: any) {
