@@ -105,6 +105,19 @@ export class ArtistsService {
 
   }
 
+  async deleteAll() {
+    const query = this.artistRepository.createQueryBuilder('artist')
+
+    try {
+      return await query
+        .delete()
+        .where({})
+        .execute()
+    } catch (error) {
+      this.handleExeptions(error)
+    }
+  }
+
   private handleExeptions(error: any) {
     if (error.code === '23505')
       throw new BadRequestException(error.detail)

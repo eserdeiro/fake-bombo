@@ -115,7 +115,7 @@ export class EventsService {
     throw new InternalServerErrorException('Unexpected error, check the server logs')
   }
 
-  async deleteAllEvents() {
+  async deleteAll() {
     const query = this.eventRepository.createQueryBuilder('event')
 
     try {

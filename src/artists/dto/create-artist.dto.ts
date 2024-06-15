@@ -32,5 +32,5 @@ export class CreateArtistDto {
     @ValidateNested({ each: true })
     @Type(() => CreateSocialMediaDto)
     @IsOptional()
-    social_media: SocialMedia[]
+    social_media?: CreateSocialMediaDto[]
 }

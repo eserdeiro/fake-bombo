@@ -11,5 +11,6 @@ import { SocialMedia } from './entities/social-media.entity';
   imports: [
     TypeOrmModule.forFeature([Artist, SocialMedia])
   ],
+  exports: [ArtistsService, TypeOrmModule]
 })
 export class ArtistsModule { }

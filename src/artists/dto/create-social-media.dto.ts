@@ -1,14 +1,13 @@
-import { IsString, MaxLength, MinLength, IsUrl } from 'class-validator';
+import { IsString, MaxLength, MinLength, IsUrl, IsNotEmpty } from 'class-validator';
 
 export class CreateSocialMediaDto {
-
     @IsString()
-    @MinLength(1)
+    @IsNotEmpty()
     @MaxLength(255)
     type: string;
 
-    @IsUrl()
+    @IsString()
+    @IsNotEmpty()
     @MaxLength(255)
     url: string;
-
 }

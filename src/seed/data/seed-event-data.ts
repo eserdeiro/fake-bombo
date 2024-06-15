@@ -9,15 +9,16 @@ interface EventSeed {
     title: string;
     description: string;
     date: string;
+    slug?: string;
     image?: string;
     tickets: TicketSeed[];
 }
 
-interface SeedData {
+interface SeedEventData {
     events: EventSeed[];
 }
 
-export const seedData: SeedData = {
+export const seedEventData: SeedEventData = {
     events: [
         {
             title: "Electric Summer Dreams",

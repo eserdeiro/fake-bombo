@@ -1,34 +1,53 @@
 import { Injectable } from '@nestjs/common';
 import { EventsService } from 'src/events/events.service';
-import { seedData } from './data/seed-data';
+import { seedEventData } from './data/seed-event-data';
+import { ArtistsService } from 'src/artists/artists.service';
+import { seedArtistData } from './data/seed-artist-data';
 
 @Injectable()
 export class SeedService {
 
   constructor(
-    private readonly eventService: EventsService
+    private readonly eventService: EventsService,
+    private readonly artistService: ArtistsService
   ) { }
 
   async executeSeed() {
-    const result = await this.insertNewProducts()
+    const results = await this.insertNewProducts()
     return {
       message: 'Seed executed',
-      count: result.length,
-      results: result
+      allItems: results.artists.count + results.events.count,
+      results: results
     };
   }
 
   async insertNewProducts() {
-    await this.eventService.deleteAllEvents()
+    const eventService = this.eventService;
+    const artistService = this.artistService;
 
-    const events = seedData.events
+    await eventService.deleteAll();
+    await artistService.deleteAll();
 
-    const insertPromises = []
+    const { events } = seedEventData;
+    const { artists } = seedArtistData;
 
-    events.forEach(event => {
-      insertPromises.push(this.eventService.create(event))
-    });
-    const results = await Promise.all(insertPromises)
-    return results
+    const eventPromises = events.map(event => eventService.create(event));
+    const artistPromises = artists.map(artist => artistService.create(artist));
+
+    const eventResults = await Promise.all(eventPromises);
+    const artistResults = await Promise.all(artistPromises);
+
+    const results = {
+      events: {
+        count: eventResults.length,
+        data: eventResults
+      },
+      artists: {
+        count: artistResults.length,
+        data: artistResults
+      }
+    };
+    return results;
   }
+
 }
