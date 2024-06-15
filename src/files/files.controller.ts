@@ -1,4 +1,15 @@
-import { Controller, Post, UploadedFile, UseInterceptors, ParseFilePipe, FileTypeValidator, MaxFileSizeValidator, BadRequestException, Inject } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  UploadedFile,
+  UseInterceptors,
+  ParseFilePipe,
+  FileTypeValidator,
+  MaxFileSizeValidator,
+  BadRequestException,
+  Inject,
+  InternalServerErrorException
+} from '@nestjs/common';
 import { FilesService } from './files.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
@@ -11,8 +22,8 @@ export class FilesController {
     private readonly _cloudinaryService: CloudinaryService
   ) { }
 
-  @Post('event')
-  @UseInterceptors(FileInterceptor('file'))
+  @Post('image')
+  @UseInterceptors(FileInterceptor('image'))
   async uploadFile(
     @UploadedFile(
       new ParseFilePipe({
@@ -20,17 +31,18 @@ export class FilesController {
           new FileTypeValidator({ fileType: '.(png|jpeg|jpg)', }),
           new MaxFileSizeValidator({ maxSize: 1024 * 1024 * 3 })
         ],
-        exceptionFactory: (error: string) => handleFileError(error)
+        exceptionFactory: (error: string) => handleFileErrorImage(error)
       })
-
     ) file: Express.Multer.File,
   ) {
-    const response = await this._cloudinaryService.uploadImage(file)
+    const response = await this._cloudinaryService.uploadImage(file).catch(err => {
+      throw new InternalServerErrorException('An error has occurred while uploading the image')
+    })
     return { url: response.url };
   }
 }
 
-function handleFileError(error: string): BadRequestException {
+function handleFileErrorImage(error: string): BadRequestException {
   let message: string;
 
   switch (true) {
