@@ -23,13 +23,17 @@ export class FilesController {
   ) { }
 
   @Post('image')
-  @UseInterceptors(FileInterceptor('image'))
+  @UseInterceptors(FileInterceptor('image', {
+    limits: {
+      files: 1,
+    },
+  }))
   async uploadFile(
     @UploadedFile(
       new ParseFilePipe({
         validators: [
           new FileTypeValidator({ fileType: '.(png|jpeg|jpg)', }),
-          new MaxFileSizeValidator({ maxSize: 1024 * 1024 * 3 })
+          new MaxFileSizeValidator({ maxSize: 1024 * 1024 * 3 }),
         ],
         exceptionFactory: (error: string) => handleFileErrorImage(error)
       })
@@ -53,7 +57,7 @@ function handleFileErrorImage(error: string): BadRequestException {
       message = 'File size too large. Maximum size allowed is 3MB.';
       break;
     default:
-      message = 'An error occurred during file validation.';
+      message = `An error occurred, ${error}`;
       break;
   }
 
