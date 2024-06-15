@@ -9,7 +9,7 @@ interface EventSeed {
     title: string;
     description: string;
     date: string;
-    image: string;
+    image?: string;
     tickets: TicketSeed[];
 }
 
@@ -23,7 +23,6 @@ export const seedData: SeedData = {
             title: "Electric Summer Dreams",
             description: "A weekend of electronic beats at the hottest beach party.",
             date: "2024-07-15T15:00:00Z",
-            image: "path/to/summer-dreams.jpg",
             tickets: [
                 {
                     title: "General Admission",

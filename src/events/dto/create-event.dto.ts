@@ -25,7 +25,7 @@ export class CreateEventDto {
 
     @IsString()
     @IsOptional()
-    image: string;
+    image?: string;
 
     @IsArray()
     @ValidateNested({ each: true })
