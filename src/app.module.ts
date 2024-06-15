@@ -6,6 +6,7 @@ import { CommonModule } from './common/common.module';
 import { SeedModule } from './seed/seed.module';
 import { FilesModule } from './files/files.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
+import { ArtistsModule } from './artists/artists.module';
 
 @Module({
   imports: [
@@ -24,7 +25,8 @@ import { CloudinaryModule } from './cloudinary/cloudinary.module';
     CommonModule,
     SeedModule,
     FilesModule,
-    CloudinaryModule
+    CloudinaryModule,
+    ArtistsModule
   ],
 })
 export class AppModule { }
