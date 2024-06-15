@@ -1,14 +1,19 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UploadedFile, UseInterceptors, ParseFilePipe, FileTypeValidator, MaxFileSizeValidator, HttpException, HttpStatus, ValidationError, BadRequestException } from '@nestjs/common';
+import { Controller, Post, UploadedFile, UseInterceptors, ParseFilePipe, FileTypeValidator, MaxFileSizeValidator, BadRequestException, Inject } from '@nestjs/common';
 import { FilesService } from './files.service';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 
 @Controller('files')
 export class FilesController {
-  constructor(private readonly filesService: FilesService) { }
+  constructor(
+    private readonly filesService: FilesService,
+    @Inject(CloudinaryService)
+    private readonly _cloudinaryService: CloudinaryService
+  ) { }
 
   @Post('event')
   @UseInterceptors(FileInterceptor('file'))
-  uploadFile(
+  async uploadFile(
     @UploadedFile(
       new ParseFilePipe({
         validators: [
@@ -20,7 +25,8 @@ export class FilesController {
 
     ) file: Express.Multer.File,
   ) {
-    return file
+    const response = await this._cloudinaryService.uploadImage(file)
+    return { url: response.url };
   }
 }
 
