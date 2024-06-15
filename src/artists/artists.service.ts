@@ -82,7 +82,7 @@ export class ArtistsService {
     try {
       if (social_media) {
         await queryRunner.manager.delete(SocialMedia, { event: id })
-        artist.social_media = social_media.map(socialMedia => this.socialMediaRepository.create(socialMedia))
+        artist.social_media = social_media.map(social_media => this.socialMediaRepository.create(social_media))
       }
 
       await queryRunner.manager.save(artist)

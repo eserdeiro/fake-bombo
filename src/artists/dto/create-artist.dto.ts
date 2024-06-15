@@ -23,6 +23,11 @@ export class CreateArtistDto {
     @MaxLength(2)
     country_code: string
 
+    @IsString()
+    @IsOptional()
+    @MaxLength(20)
+    slug?: string
+
     @IsArray()
     @ValidateNested({ each: true })
     @Type(() => CreateSocialMediaDto)
