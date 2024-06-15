@@ -4,7 +4,7 @@ import { IsOptional, IsPositive, IsString, Min, MinLength } from "class-validato
 export class QuerysDto {
     @IsOptional()
     @IsPositive()
-    @Type(() => Number) // Convert string to number
+    @Type(() => Number)
     limit?: number
 
     @IsOptional()

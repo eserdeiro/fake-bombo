@@ -12,6 +12,6 @@ export class SocialMedia {
     @Column('text', { nullable: false })
     url: string;
 
-    @ManyToOne(() => Artist, artist => artist.socialMedia, { nullable: false, onDelete: 'CASCADE' })
+    @ManyToOne(() => Artist, artist => artist.social_media, { nullable: false, onDelete: 'CASCADE' })
     artist: Artist;
 }

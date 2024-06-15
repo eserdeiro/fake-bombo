@@ -13,6 +13,9 @@ export class Artist {
     @Column('text', { nullable: false })
     about: string;
 
+    @Column('text', { nullable: false })
+    country_code: string;
+
     @Column('text', {
         default: '/default.png',
         nullable: false
@@ -20,5 +23,5 @@ export class Artist {
     image: string;
 
     @OneToMany(() => SocialMedia, socialMedia => socialMedia.artist, { cascade: true })
-    socialMedia: SocialMedia[];
+    social_media: SocialMedia[];
 }
