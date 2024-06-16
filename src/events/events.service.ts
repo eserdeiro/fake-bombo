@@ -20,27 +20,42 @@ export class EventsService {
     private readonly dataSource: DataSource
   ) { }
 
+  /**
+   * Creates a new event with associated tickets.
+   * @param createEventDto The DTO containing event details and tickets.
+   * @returns The newly created event.
+   */
   async create(createEventDto: CreateEventDto) {
     try {
-      const { tickets = [], ...eventDetails } = createEventDto
+      const { tickets = [], ...eventDetails } = createEventDto;
 
+      // Create a new event entity with the provided details.
       const event = this.eventRepository.create({
         ...eventDetails,
+        // Map the provided tickets to Ticket entities.
         tickets: tickets.map(ticket => this.ticketRepository.create(ticket))
-      })
+      });
 
-      await this.eventRepository.save(event)
+      // Save the event to the database.
+      await this.eventRepository.save(event);
 
-      return event
+      // Return the created event.
+      return event;
 
     } catch (error) {
-      this.errorHandlingService.handleDatabaseErrors(error)
+      // Handle database errors using the error handling service.
+      this.errorHandlingService.handleDatabaseErrors(error);
     }
-
   }
 
+  /**
+   * Retrieves all events with optional pagination and search functionality.
+   * @param querysDto The DTO containing query parameters.
+   * @returns An array of events.
+   */
   async findAll(querysDto: QuerysDto) {
-    const { limit = 10, offset = 0, search } = querysDto
+    const { limit = 10, offset = 0, search } = querysDto;
+    // Find events with specified parameters, including tickets.
     const events = await this.eventRepository.find({
       take: limit,
       skip: offset,
@@ -53,6 +68,11 @@ export class EventsService {
     return events;
   }
 
+  /**
+   * Retrieves a single event by its ID.
+   * @param id The ID of the event to retrieve.
+   * @returns The event with the specified ID.
+   */
   async findOne(id: string) {
     const event = await this.eventRepository.findOne({
       where: { id },
@@ -61,6 +81,7 @@ export class EventsService {
       }
     });
 
+    // Throw a NotFoundException if the event is not found.
     if (!event) {
       throw new NotFoundException(`Event with ID ${id} not found`);
     }
@@ -68,54 +89,84 @@ export class EventsService {
     return event;
   }
 
+  /**
+   * Updates an existing event.
+   * @param id The ID of the event to update.
+   * @param updateEventDto The DTO containing the updated event details.
+   * @returns The updated event.
+   */
   async update(id: string, updateEventDto: UpdateEventDto) {
-    const { tickets, ...toUpdate } = updateEventDto
+    const { tickets, ...toUpdate } = updateEventDto;
 
-    const event = await this.eventRepository.preload({ id, ...toUpdate })
+    // Preload the event with the specified ID and update it with the provided data.
+    const event = await this.eventRepository.preload({ id, ...toUpdate });
 
-    if (!event) throw new NotFoundException(`Event with ${id} not found`)
+    // Throw a NotFoundException if the event is not found.
+    if (!event) throw new NotFoundException(`Event with ${id} not found`);
 
-    const queryRunner = this.dataSource.createQueryRunner()
+    // Create a query runner for transaction management.
+    const queryRunner = this.dataSource.createQueryRunner();
 
-    await queryRunner.connect()
-    await queryRunner.startTransaction()
+    // Connect to the database and start a transaction.
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
 
     try {
+      // If tickets are provided, delete existing tickets and create new ones.
       if (tickets) {
-        await queryRunner.manager.delete(Ticket, { event: id })
-        event.tickets = tickets.map(ticket => this.ticketRepository.create(ticket))
+        await queryRunner.manager.delete(Ticket, { event: id });
+        event.tickets = tickets.map(ticket => this.ticketRepository.create(ticket));
       }
 
-      await queryRunner.manager.save(event)
-      await queryRunner.commitTransaction()
-      await queryRunner.release()
-      return this.findOne(id)
+      // Save the updated event to the database.
+      await queryRunner.manager.save(event);
+
+      // Commit the transaction and release the query runner.
+      await queryRunner.commitTransaction();
+      await queryRunner.release();
+
+      // Return the updated event.
+      return this.findOne(id);
     } catch (error) {
-      await queryRunner.rollbackTransaction()
-      await queryRunner.release()
-      this.errorHandlingService.handleDatabaseErrors(error)
+      // Rollback the transaction and release the query runner if an error occurs.
+      await queryRunner.rollbackTransaction();
+      await queryRunner.release();
+
+      // Handle database errors using the error handling service.
+      this.errorHandlingService.handleDatabaseErrors(error);
     }
   }
 
+  /**
+   * Deletes an event by its ID.
+   * @param id The ID of the event to delete.
+   * @returns A success message.
+   */
   async remove(id: string) {
-    const event = await this.findOne(id)
+    const event = await this.findOne(id);
 
+    // Remove the event from the database.
     await this.eventRepository.remove(event);
 
     return { message: `Event with id ${id} has been removed` };
-
   }
 
+  /**
+   * Deletes all events.
+   * @returns The result of the delete operation.
+   */
   async deleteAll() {
-    const query = this.eventRepository.createQueryBuilder('event')
+    const query = this.eventRepository.createQueryBuilder('event');
 
     try {
+      // Delete all events using a query builder.
       return await query
         .delete()
         .where({})
-        .execute()
+        .execute();
     } catch (error) {
-      this.errorHandlingService.handleDatabaseErrors(error)
+      // Handle database errors using the error handling service.
+      this.errorHandlingService.handleDatabaseErrors(error);
     }
   }
 }
