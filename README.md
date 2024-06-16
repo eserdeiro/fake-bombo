@@ -1,32 +1,26 @@
 # Fake Bombo API
 
-**Fake Bombo API** is an in-development API that mimics the basic functionalities of the popular 'Bombo' app. This project is designed for educational purposes to help developers understand and build similar APIs.
+**Fake Bombo API** is a comprehensive and robust API designed to mimic the core functionalities of the popular 'Bombo' app. This project serves as a valuable educational resource for developers seeking to understand and build similar APIs.
 
-Furthermore, this API will be the foundation for a future Flutter application that I will develop, which will also serve as a 'fake' version of the 'Bombo' app. This ensures a seamless integration and scalability between the API and the Flutter application.
+## Key Features
 
-## Features
+- **User Authentication:** Secure user registration, login, and session management using JWT (JSON Web Tokens).
+- **Event Management:** Comprehensive event management capabilities, including creation, update, deletion, and retrieval of event details.
+- **Artist Management:** Efficient management of artist profiles, including adding, updating, and deleting artist information.
+- **Ticket Purchasing:** Enables users to purchase tickets for various events.
+- **Event Attendance:** Allows users to indicate their intention to attend events.
+- **Comments:** Facilitates user engagement through commenting on events.
+- **Admin Features:** Provides administrators with enhanced control over events, artists, and news content.
 
-- **User Authentication**: Support for user registration, login, and session management.
-- **Ticket Purchasing**: Allows users to buy tickets for various events.
-- **Event Attendance**: Users can indicate their intention to attend events.
-- **Event Management**: Administrators can create, update, and delete events.
-- **Artist Management**: Administrators have the ability to add and manage artist profiles.
-- **Comments**: Users can comment on events to share their experiences or opinions.
-<!-- - **Notifications**: A basic notification system to keep users updated about event news and updates. -->
+## Technologies
 
-## Admin Features
+- **Backend:** NestJS, a powerful and scalable Node.js framework for building server-side applications.
+- **Database:** PostgreSQL, a robust and reliable open-source relational database.
+- **Authentication:** JWT (JSON Web Tokens) for secure and scalable user authentication.
+- **Documentation:** Swagger, a comprehensive tool for API documentation, ensuring ease of maintenance and consumption.
+- **Cloudinary:** Cloudinary, a cloud-based service for image and video storage and management, enhancing media handling capabilities.
 
-- **Event and Artist Management**: Admins can add and manage details about events and artists, including schedules, descriptions, and associated media.
-- **News Management**: Ability to post updates or news related to events, artists, or the app itself.
-
-## Technologies Used
-
-- **Backend**: NestJS (an extensible Node.js framework for building efficient and scalable server-side applications)
-- **Database**: PostgreSQL (an advanced open-source relational database)
-- **Authentication**: JWT (JSON Web Tokens) for secure and scalable user authentication
-- **Documentation**: Swagger (for API documentation, making it easier to maintain and consume the API)
-
-## Installation
+## Installation and Setup
 
 ```powershell
 # clone project 
@@ -45,27 +39,22 @@ $ docker-compose up -d
 ## Running the app
 
 ```powershell
-# development
-$ npm run start
 
-# watch mode
+# development mode
 $ npm run start:dev
 
 # production mode
 $ npm run start:prod
 ```
 
-## Seed
+## Seed Data
 
-**Seed** The seed endpoint is a critical feature designed to initialize the database with initial data sets.
+The ``seed`` endpoint provides a convenient way to initialize the database with pre-defined data sets.
 
-It acts as the starting point for setting up a pre-defined environment in your database. 
+-   Access the seed endpoint: http://localhost:3000/api/seed
+-   Note: This will delete all existing data in the database and overwrite it with the seed data.
 
-By accessing ``http://localhost:3000/api/seed``, you can insert initial data into the database, which is crucial for setting up a predefined test environment or for starting the application with a basic set of data. 
-> [!CAUTION]
-> This will delete all existing data in the database and overwrite it with the seed data.
-
-## Stay in touch
+## Contact
 
 - Author - [eserdeiro](https://github.com/eserdeiro)
 - Website - [github](https://github.com/eserdeiro)
