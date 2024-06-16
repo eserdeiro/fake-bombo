@@ -8,6 +8,7 @@ import { FilesModule } from './files/files.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { ArtistsModule } from './artists/artists.module';
 import { AuthModule } from './auth/auth.module';
+import { ErrorHandlingService } from './common/error-handling/error-handling.service';
 
 @Module({
   imports: [
@@ -30,5 +31,6 @@ import { AuthModule } from './auth/auth.module';
     ArtistsModule,
     AuthModule
   ],
+  providers: [ErrorHandlingService],
 })
 export class AppModule { }

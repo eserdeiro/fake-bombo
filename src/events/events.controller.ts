@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, ParseUUIDPipe, Query
 import { EventsService } from './events.service';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
-import { QuerysDto as QuerysDto } from 'src/common/dto/querys.dto';
+import { QuerysDto } from 'src/common/dto/querys.dto';
 
 @Controller('events')
 export class EventsController {

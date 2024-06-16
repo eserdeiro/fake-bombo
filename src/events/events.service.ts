@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, InternalServerErrorException, Logger, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -6,18 +6,17 @@ import { DataSource, ILike, Repository } from 'typeorm';
 import { Event } from './entities/event.entity';
 import { Ticket } from './entities/ticket.entity';
 import { QuerysDto as QuerysDto } from 'src/common/dto/querys.dto';
+import { ErrorHandlingService } from 'src/common/error-handling/error-handling.service';
 
 @Injectable()
 export class EventsService {
-
-  private readonly logger = new Logger('EventsService')
 
   constructor(
     @InjectRepository(Event)
     private readonly eventRepository: Repository<Event>,
     @InjectRepository(Ticket)
     private readonly ticketRepository: Repository<Ticket>,
-
+    private readonly errorHandlingService: ErrorHandlingService,
     private readonly dataSource: DataSource
   ) { }
 
@@ -35,7 +34,7 @@ export class EventsService {
       return event
 
     } catch (error) {
-      this.handleExeptions(error)
+      this.errorHandlingService.handleDatabaseErrors(error)
     }
 
   }
@@ -94,7 +93,7 @@ export class EventsService {
     } catch (error) {
       await queryRunner.rollbackTransaction()
       await queryRunner.release()
-      this.handleExeptions(error)
+      this.errorHandlingService.handleDatabaseErrors(error)
     }
   }
 
@@ -107,14 +106,6 @@ export class EventsService {
 
   }
 
-  private handleExeptions(error: any) {
-    if (error.code === '23505')
-      throw new BadRequestException(error.detail)
-
-    this.logger.error(error.detail)
-    throw new InternalServerErrorException('Unexpected error, check the server logs')
-  }
-
   async deleteAll() {
     const query = this.eventRepository.createQueryBuilder('event')
 
@@ -124,7 +115,7 @@ export class EventsService {
         .where({})
         .execute()
     } catch (error) {
-      this.handleExeptions(error)
+      this.errorHandlingService.handleDatabaseErrors(error)
     }
   }
 }
