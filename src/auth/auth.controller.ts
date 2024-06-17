@@ -1,8 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
+import { GetUser } from './decorators/get-user.decorator';
+import { User } from './entities/user.entity';
+import { ValidRoles } from './interfaces/valid-roles.interface';
+import { Auth } from './decorators/auth.decorator';
 
 @Controller('auth')
 export class AuthController {
@@ -16,6 +19,17 @@ export class AuthController {
   @Post('login')
   login(@Body() loginUserDto: LoginUserDto) {
     return this.authService.login(loginUserDto)
+  }
+
+  @Get('private')
+  @Auth(ValidRoles.admin)
+  testingPrivateRoute(
+    @GetUser() user: User,
+  ) {
+    return {
+      ok: true,
+      user,
+    }
   }
 
 }

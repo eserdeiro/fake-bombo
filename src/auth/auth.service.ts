@@ -47,7 +47,7 @@ export class AuthService {
 
       // Generate a JWT token for the newly created user.
       const token = this.getJwtToken({
-        email: user.email
+        id: user.id
       });
 
       // Return the created user with the generated token.
@@ -76,6 +76,7 @@ export class AuthService {
       select: {
         email: true,
         password: true,
+        id: true
       }
     });
 
@@ -91,7 +92,7 @@ export class AuthService {
 
     // Generate a JWT token for the authenticated user.
     const token = this.getJwtToken({
-      email: user.email
+      id: user.id
     });
 
     // Return the authenticated user with the generated token.
