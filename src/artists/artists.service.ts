@@ -108,7 +108,7 @@ export class ArtistsService {
     const artist = await this.artistRepository.preload({ id, ...toUpdate });
 
     // Throw a NotFoundException if the artist is not found.
-    if (!artist) throw new NotFoundException(`Event with ${id} not found`);
+    if (!artist) throw new NotFoundException(`Artist with ${id} not found`);
 
     // Create a query runner for transaction management.
     const queryRunner = this.dataSource.createQueryRunner();
@@ -120,7 +120,7 @@ export class ArtistsService {
     try {
       // If social media links are provided, delete existing links and create new ones.
       if (social_media) {
-        await queryRunner.manager.delete(SocialMedia, { event: id });
+        await queryRunner.manager.delete(SocialMedia, { artist: id });
         artist.social_media = social_media.map(social_media => this.socialMediaRepository.create(social_media));
       }
 
