@@ -21,6 +21,14 @@ export class AuthController {
     return this.authService.login(loginUserDto)
   }
 
+  @Get('check-status')
+  @Auth()
+  checkStatus(
+    @GetUser() user: User,
+  ) {
+    return this.authService.checkStatus(user)
+  }
+
   //TODO: ADD PATCH USER
 
   // @Get('private')

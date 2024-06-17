@@ -112,4 +112,11 @@ export class AuthService {
     return token;
   }
 
+  checkStatus(user: User) {
+    return {
+      ...user,
+      token: this.getJwtToken({ id: user.id })
+    };
+  }
+
 }
