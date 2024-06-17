@@ -30,7 +30,7 @@ export class UserRoleGuard implements CanActivate {
         return true;
     }
 
-    throw new ForbiddenException(`User ${user.fullname} not authorized, you must have ${validRoles.join(', ')} privileges`)
+    throw new ForbiddenException(`User ${user.fullname} not authorized, you must have ${validRoles} privileges`)
 
   }
 }

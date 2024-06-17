@@ -1,4 +1,5 @@
-import { IsEmail, IsNotEmpty, IsString, Matches, MaxLength, MinLength } from "class-validator";
+import { ArrayUnique, IsArray, IsEmail, IsEnum, IsNotEmpty, IsOptional, IsString, Matches, MaxLength, MinLength } from "class-validator";
+import { ValidRoles } from "../interfaces/valid-roles.interface";
 
 export class CreateUserDto {
     @IsString()
@@ -20,4 +21,13 @@ export class CreateUserDto {
     @MinLength(1)
     fullname: string
 
+    @IsArray()
+    @ArrayUnique()
+    @IsEnum(ValidRoles, {
+        each: true,
+        message: (args) => `Role must be one of the following: ${Object.values(ValidRoles).join(', ')}.'
+        ' Your input: ${args.value}`
+    })
+    @IsOptional()
+    roles?: ValidRoles[];
 }

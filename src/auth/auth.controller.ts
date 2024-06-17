@@ -21,15 +21,17 @@ export class AuthController {
     return this.authService.login(loginUserDto)
   }
 
-  @Get('private')
-  @Auth(ValidRoles.admin)
-  testingPrivateRoute(
-    @GetUser() user: User,
-  ) {
-    return {
-      ok: true,
-      user,
-    }
-  }
+  //TODO: ADD PATCH USER
+
+  // @Get('private')
+  // @Auth(ValidRoles.admin)
+  // testingPrivateRoute(
+  //   @GetUser() user: User,
+  // ) {
+  //   return {
+  //     ok: true,
+  //     user,
+  //   }
+  // }
 
 }
