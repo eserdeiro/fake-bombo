@@ -1,12 +1,7 @@
 import { registerDecorator, ValidationOptions, ValidationArguments } from 'class-validator';
+import { socialMediaTypes } from '../constants/social-media-types';
 
 export function IsValidSocialURL(validationOptions?: ValidationOptions) {
-    const socialMediaTypes = [
-        { type: 'soundcloud', url: 'https://soundcloud.com/' },
-        { type: 'spotify', url: 'https://open.spotify.com/' },
-        { type: 'instagram', url: 'https://instagram.com/' }
-    ];
-
     return function (object: Object, propertyName: string) {
         registerDecorator({
             name: 'isValidSocialURL',
