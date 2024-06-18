@@ -17,7 +17,7 @@ async function main() {
     })
   );
   const config = new DocumentBuilder()
-    .setTitle('Fake-Bombos API example')
+    .setTitle('Fake-Bombo API')
     .setDescription(`A comprehensive and robust API designed to mimic the core functionalities of the popular 'Bombo' app`)
     .setVersion('1.0')
     .build();
